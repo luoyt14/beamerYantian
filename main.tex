@@ -1,0 +1,134 @@
+\documentclass[10pt,aspectratio=169]{beamer}
+
+\usetheme{Yantian}
+
+\usepackage{lipsum}
+%\providecommand{\lishu}{\CJKfontspec{Libian SC}[BoldFont=Baoli SC,Scale=1.2]}
+%
+%\setbeamertemplate{sections/subsections in toc}[ball]
+\usepackage{amsmath}
+\usepackage{xeCJK}
+\usepackage{caption}
+%\usepackage{mathspec}
+%\setmainfont{Times New Roman}
+%\setmathsfont{Times New Roman}
+\setCJKmainfont{KaiTi}[AutoFakeBold] %FZKTK--GBK1-0
+\usefonttheme{professionalfonts}
+\def\mathfamilydefault{\rmdefault}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\usepackage{bm}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{bbm}
+\usepackage{extarrows}
+\usepackage{pgfornament-han}
+%\usepackage{enumitem}
+\usepackage{fontawesome5}
+\usepackage{subfigure}
+\usetikzlibrary{chains}
+\usetikzlibrary{calc}
+\usetikzlibrary{decorations}
+\usetikzlibrary{decorations.text,decorations.markings}
+\usetikzlibrary{fadings}
+\renewcommand{\arraystretch}{1.5}
+\definecolor{secolor}    {RGB}{176, 164, 227}
+%\setbeamertemplate{sections/subsections in toc}[ball]
+\makeatletter
+\patchcmd{\beamer@sectionintoc}
+{\vfill}
+{\vskip 10pt}
+{}
+{}
+\makeatother
+
+
+\title{Template}
+%\subtitle{子标题}
+\author[罗雁天]{罗雁天}
+\mail{lyt18@mails.tsinghua.edu.cn}
+\institute[清华大学]{无线多媒体通信实验室\\
+清华大学电子工程系}
+\date{\today}
+\renewcommand{\today}{\number\year 年 \number\month 月 \number\day 日}
+
+\AtBeginSection[]{
+	{\usebackgroundtemplate{\includegraphics[width=\paperwidth]{bg/toc.png}}
+	\begin{frame}[plain]
+		\begin{columns}
+			\column{.2\linewidth}
+			\begin{tikzpicture}[remember picture,overlay]
+				\node at (current page.north west) [scale=2.5,xshift=1.7cm,yshift=-.35cm,font=\chieu \lishu \bfseries,text=DarkPurple]{目录};
+			\end{tikzpicture}
+			\column{.8\linewidth}
+			\chieu \lishu \bfseries \Large
+			\tableofcontents[currentsection]
+		\end{columns}
+	\end{frame}}
+}
+
+%\AtBeginSubsection[]{
+%	\begin{frame}[plain]{OUTLINE}
+%		\begin{ascolorbox12}{OUTLINE}
+%			\chieu \lishu \bfseries
+%			\tableofcontents[currentsection,currentsubsection]
+%		\end{ascolorbox12}
+%	\end{frame}
+%}
+
+
+\begin{document}
+
+\maketitle
+
+{
+	\usebackgroundtemplate{\includegraphics[width=\paperwidth]{bg/toc.png}}
+	\begin{frame}[plain]
+		\begin{columns}
+			\column{.2\linewidth}
+			\begin{tikzpicture}[remember picture,overlay]
+				\node at (current page.north west) [scale=2.5,xshift=1.7cm,yshift=-.35cm,font=\chieu \lishu \bfseries,text=DarkPurple]{目录};
+			\end{tikzpicture}
+			\column{.8\linewidth}
+			\chieu \lishu \bfseries \Large
+			\tableofcontents
+		\end{columns}
+	\end{frame}
+}
+
+\section{Introduction}
+\begin{frame}{Introduction}
+		\begin{itemize}
+			\item 修改字体命令在beamerthemeYantian.sty里，Mac上的字体和Windows上的字体不一样，需要手动修改
+			\item 志明是雁天儿子
+		\end{itemize}
+\end{frame}
+
+\section{乱七八糟凑字数}
+\begin{frame}{乱七八糟凑字数}
+	\begin{itemize}
+		\item 关山难越，谁悲失路之人；萍水相逢，尽是他乡之客
+		\item 我达达的马蹄是美丽的错误，我不是归人，是个过客
+		\item 不为盛名而来，不为低谷而去
+	\end{itemize}
+\end{frame}
+
+{
+	\usebackgroundtemplate{\begin{tikzpicture}[overlay, remember picture]
+			\node[opacity=1,xshift=8.0cm,yshift=-4.49cm] {\includegraphics[width=\paperwidth,height=\paperheight]{bg/bg1}};
+		\end{tikzpicture}}
+	\begin{frame}[plain]
+		\begin{center}
+			\begin{tikzpicture}[x=1pt,y=1pt]
+			\node[font=\Huge \huati \lishu \bfseries,align=center,xshift=120,yshift=-25,text=white] at (0,0) {Thank You!};
+			\node[font=\Huge \huati \lishu \bfseries,align=center,xshift=120,yshift=-45,text=white,yscale=-1,scope fading=south, opacity=0.5] at (0,0) {Thank You!};
+			\end{tikzpicture} 
+		\end{center}
+	\end{frame}
+}
+
+\end{document}
+
+

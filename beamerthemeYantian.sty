@@ -1,0 +1,268 @@
+\NeedsTeXFormat{LaTeX2e}[2005/12/01]
+\ProvidesPackage{beamerthemeYantian}[2020/12/06 Themes for the Beamer class]%
+
+\mode<presentation>
+
+\RequirePackage{fontspec}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Mac上使用如下命令声明字体
+%\providecommand{\lishu}{\CJKfontspec{Libian SC}[BoldFont=Baoli SC,Scale=1.2]}
+%\providecommand{\pian}{\CJKfontspec{STXinwei}}
+%\providecommand{\huati}{\fontspec{BrushScriptMT}}
+%\providecommand{\chieu}{\fontspec{Helvetica}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Windows上使用如下命令声明字体
+\providecommand{\lishu}{\CJKfontspec{LiSu}[BoldFont=LiSu,Scale=1.2]}
+\providecommand{\pian}{\CJKfontspec{STXinwei}}
+\providecommand{\huati}{\fontspec{BrushScriptMT}}
+\providecommand{\chieu}{\fontspec{Bell MT}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Packages
+
+\RequirePackage{tikz,varwidth,multicol}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{listings,theorems,skins}
+\usetikzlibrary{calc,fadings}
+\tcbuselibrary{xparse,hooks,skins,breakable}
+
+\def\lecturename{Lezione}
+
+% ******************
+% colortheme
+% ******************
+\definecolor{Yantiangreen}    {RGB}{0,152,0}
+\definecolor{Yantianblue}     {RGB}{0,51,102}
+\definecolor{Yantianorange}   {RGB}{238,118,0}
+\definecolor{Yantianred}      {RGB}{152,0,0}
+\definecolor{Yantiangray}     {RGB}{100,100,105}
+\definecolor{Yantiangrayblue} {RGB}{0,128,128}
+\definecolor{Yantiangraygreen}{RGB}{128,128,0}
+\definecolor{DarkPurple}     {RGB}{126, 18, 138}
+\definecolor{footline}     {RGB}{100, 61, 149}
+%\definecolor{DarkPurple}     {RGB}{147, 0, 132}
+\definecolor{LightPurple}    {RGB}{191, 83, 219}
+\setbeamercolor{alerted text}{fg=Yantianred}
+\setbeamercolor{example text}{fg=Yantiangreen}
+\setbeamercolor{structure}{fg=DarkPurple}
+\setbeamercolor*{author in head/foot}{fg=DarkPurple,bg=}
+\setbeamercolor*{title in head/foot}{fg=DarkPurple,bg=}
+\setbeamercolor*{date in head/foot}{fg=DarkPurple,bg=}
+\setbeamercolor*{subtitle}{fg=white}
+\setbeamercolor*{title}{fg=white,bg=Yantiangray!75}
+\setbeamercolor*{frametitle}{fg=white}
+%\setbeamercolor*{sectiontitle}{fg=white,bg=DarkPurple!75}
+\setbeamercolor*{author}{fg=white}
+\setbeamercolor*{date}{fg=white}
+% blocks
+\setbeamercolor{block title}{use=structure,fg=structure.fg,bg=structure.fg!30!bg}
+\setbeamercolor{block title alerted}{use=alerted text,fg=alerted text.fg,bg=alerted text.fg!30!bg}
+\setbeamercolor{block title example}{use=example text,fg=example text.fg,bg=example text.fg!30!bg}
+
+\setbeamercolor{block body}{parent=normal text,use=block title,bg=structure.fg!10!bg}
+\setbeamercolor{block body alerted}{parent=normal text,use=block title alerted,bg=alerted text.fg!10!bg}
+\setbeamercolor{block body example}{parent=normal text,use=block title example,bg=example text.fg!10!bg}
+% ******************
+% fonttheme
+% ******************
+\setbeamerfont*{tiny structure}{series=\mdseries,size=\fontsize{6}{6}}
+\setbeamerfont*{title}{size=\Huge,series=\mdseries,family=\pian}
+\setbeamerfont*{subtitle}{size=\large,series=\mdseries,family=\pian\chieu}
+\setbeamerfont*{frametitle}{size=\Large,series=\bfseries,family=\lishu}
+\setbeamerfont*{framesubtitle}{series=\mdseries}
+\setbeamerfont*{author}{size=\Large,series=\bfseries}
+\setbeamerfont*{date}{size=\large}
+\setbeamerfont*{institute}{size=\large}
+\setbeamerfont*{block title}{size={}}
+% ******************
+% innertheme
+% ******************
+\setbeamertemplate{itemize item}[circle]
+\setbeamertemplate{itemize subitem}[square]
+\setbeamertemplate{blocks}[rounded][shadow=true]
+%\setbeamercolor{quotation}{bg=black!5}
+\setbeamertemplate{quotation begin}
+{\begin{tcolorbox}[blanker,borderline west={3pt}{-2pt}{black!15},
+		before skip=\baselineskip,
+		after skip=\baselineskip
+		]}
+	\setbeamertemplate{quotation end}
+	{\end{tcolorbox}%
+	\ifx\autorecitazione\@empty\else\vskip-1ex
+	\hfill\footnotesize(\autorecitazione)\fi
+}
+
+\newenvironment<>{citazione}[1][]
+{\def\autorecitazione{#1}%
+	\actionenv#2%
+	\usebeamertemplate{quotation begin}
+	\usebeamerfont{quotation}%
+	\usebeamercolor{quotation}%
+	\list{}{\listparindent 0em%
+		\itemindent    \listparindent
+		\leftmargin   3pt
+		\rightmargin   0pt
+		\parsep        \z@ \@plus\p@}%
+	\item\relax}
+{\endlist
+	\usebeamertemplate{quotation end}\endactionenv}
+\let\quotation\citazione
+% ******************
+% outertheme
+% ******************
+\def\structureA{structure.fg!70}
+\def\structureB{structure.fg}
+
+\setbeamertemplate{navigation symbols}{}
+
+\let\oldtitlegraphic\titlegraphic
+\renewcommand{\titlegraphic}[3][]{%
+	\oldtitlegraphic{\node[inner sep=10pt,anchor=north west,#3] at (titlepage) {\includegraphics[#1]{#2}}}}
+
+% ******************
+% footline
+% ******************
+\def\lectureinfoot{%
+	\ifnum\thelecture=0\else
+	\tikz[overlay]\node[yshift=2pt,text=structure.fg] 
+	{\bf$\cdot$\thelecture$\cdot$};
+	\fi}
+\setbeamertemplate{footline}
+{%
+	\begin{tikzpicture}[overlay]
+		\draw[draw=structure.fg!35] (0mm,2.5mm) -- (15.86cm,2.5mm);
+		\draw[fill=\structureA,draw=\structureA,yshift=-.5mm] (0mm,2.5mm) rectangle ++ (1mm,1mm);
+		\draw[fill=\structureA,draw=\structureA,yshift=-.5mm] (15.89cm,2.5mm) rectangle ++ (1mm,1mm);
+	\end{tikzpicture}
+	\leavevmode%
+	\hfill\hbox{%
+		\begin{beamercolorbox}[wd=.3333333\paperwidth,ht=2.25ex,dp=1ex,left]{author in head/foot}%
+			\usebeamerfont{author in head/foot}\hspace*{1ex}\insertshortauthor\expandafter\beamer@ifempty\expandafter{\beamer@shortinstitute}{}{~~(\insertshortinstitute)}
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.3333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+			\usebeamerfont{title in head/foot}\insertshorttitle
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.3333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+			\usebeamerfont{date in head/foot}
+			\insertshortdate{}\hspace*{0.2em}
+			\lectureinfoot\quad\insertframenumber~\tikz[overlay]\draw[draw=\structureA] (0,-.5mm) -- (0,1.6mm);~\inserttotalframenumber\hspace*{2mm} 
+	\end{beamercolorbox}}%
+	\vskip0pt%
+}
+% ******************
+% title page
+% ******************
+\newlength{\frametitlesidebar}
+\setlength{\frametitlesidebar}{\dimexpr(\paperwidth-\beamer@rightsidebar-2mm)}
+\setbeamertemplate{title page}
+{
+	\begingroup
+	\centering
+		\vskip3mm
+		\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle\par%
+		\ifx\insertsubtitle\@empty%
+		\else\vskip.5ex%
+		{\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}
+			\hskip.5ex\insertsubtitle\par}%
+		\fi
+		\vskip6mm
+		{\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor}\vskip-.5ex
+		{\usebeamerfont{author}\usebeamercolor[fg]{author}\large\ttfamily\@mail}
+		\vskip3mm
+		\usebeamerfont{institute}\usebeamercolor[fg]{author}\insertinstitute
+		\vskip3mm
+		\usebeamercolor[fg]{date}\usebeamerfont{date}\insertdate
+		\vskip3mm
+	\endgroup
+}
+% ******************
+% frametitle
+% ******************
+\setbeamertemplate{frametitle}
+{
+	\ifbeamercolorempty[bg]{frametitle}{}{\nointerlineskip}%
+	\@tempdima=\textwidth%
+	\advance\@tempdima by\beamer@leftmargin%
+	\advance\@tempdima by\beamer@rightmargin%
+	\begin{beamercolorbox}[sep=0.3cm,left,wd=\the\@tempdima]{frametitle}
+		\usebeamerfont{frametitle}%
+		\vbox{}\vskip-1ex%
+%		\strut\insertframetitle\strut\par%
+		{%
+			\begin{tikzpicture}[overlay]
+			\node at (.5\frametitlesidebar-5.6pt,6pt) {\includegraphics[height=1cm,width=\linewidth]{bg/title}};
+			\node[anchor=north east] at (\frametitlesidebar,-180pt) {\includegraphics[width=1.5cm]{bg/1}};
+			\end{tikzpicture}
+%			\vspace{-.5ex}
+		}%
+		\strut\insertframetitle\strut\par%
+		\vskip-1ex%
+		\if@tempswa\else\vskip-1ex\fi% set inside beamercolorbox... evil here...
+	\end{beamercolorbox}%
+}
+
+% ******************************************************
+% ******************************************************
+
+\def\beamer@fteright{\vskip0.35cm\advance\leftskip by 1.7cm\advance\rightskip by1.7cm}
+
+\setbeamersize{text margin left=3mm,text margin right=3mm}
+
+% ******************
+% new commands
+% ******************
+\renewcommand{\maketitle}{%
+	\usebackgroundtemplate{\begin{tikzpicture}[overlay, remember picture]
+			\node[opacity=1,xshift=8.0cm,yshift=-4.49cm] {\includegraphics[width=\paperwidth,height=\paperheight]{bg/bg1}};
+	\end{tikzpicture}}
+	\begin{frame}[plain]
+		\titlepage
+\end{frame}
+\usebackgroundtemplate{\begin{tikzpicture}[overlay, remember picture]
+		\node[opacity=0.1,xshift=8.0cm,yshift=-4.49cm] {\includegraphics[width=\paperwidth,height=\paperheight]{bg/bg2.png}};
+	\end{tikzpicture}}
+}
+
+\newcommand{\mail}[1]{\def\@mail{#1}}
+\mail{}
+\newcommand\datelecture{\@dblarg\beamer@datelecture}
+\long\def\beamer@datelecture[#1]#2#3#4{
+	\beamer@savemode
+	\mode<all>
+	\refstepcounter{lecture}\date{#2}
+	\def\beamer@currentlecturelabel{#4}
+	\@onelevel@sanitize\beamer@currentlecturelabel
+	\def\beamer@lecturename{#3}
+	\def\beamer@shortlecturename{#1}
+	\ifx\beamer@onlylecture\@empty
+	\else
+	\expandafter\beamer@if@in@clist@TF\expandafter\beamer@onlylecture
+	\expandafter{\beamer@currentlecturelabel}%
+	{\beamer@inlecturetrue}
+	{\beamer@inlecturefalse}
+	\fi
+	\beamer@atbeginlecture
+	\beamer@resumemode
+}
+
+\AtBeginLecture{%
+	\begin{frame}[plain]
+		\begin{center}
+			\begin{tcolorbox}[blanker,borderline horizontal={3pt}{20pt}{structure.fg}]
+				\centering\color{structure.fg}\bfseries \lecturename~\thelecture.\quad \insertlecture\\
+			\end{tcolorbox}
+		\end{center}
+	\end{frame}
+}
+
+
+\mode
+<all>
+
+\endinput
+%%
+
+
